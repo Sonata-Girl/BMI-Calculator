@@ -9,6 +9,8 @@ import UIKit
 
 final class MainViewController: UIViewController {
 
+    var calculatorBrain = CalculatorBrain()
+    
     private lazy var imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "calculate_background")
@@ -90,7 +92,7 @@ final class MainViewController: UIViewController {
     
     private lazy var weightLabel: UILabel = {
         let label = UILabel()
-        label.text = "Height"
+        label.text = "Weight"
         label.font = .systemFont(ofSize: 17)
         label.textColor = .darkGray
         label.contentMode = .left
@@ -100,7 +102,7 @@ final class MainViewController: UIViewController {
     
     private lazy var weightValueLabel: UILabel = {
         let label = UILabel()
-        label.text = "1.5m"
+        label.text = "100kg"
         label.font = .systemFont(ofSize: 17)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .darkGray
@@ -196,10 +198,10 @@ final class MainViewController: UIViewController {
     @objc
     private func buttonTapped(button: UIButton) {
         
-        let BMI = weightSlider.value / pow(heightSlider.value, 2)
-        
+        calculatorBrain.calculateBMI(height: heightSlider.value, weight: weightSlider.value)
+
         let vc = ResultVCViewController()
-        vc.result = "\(String(format: "%.1f", BMI))"
+        vc.bmi = calculatorBrain.getBMI()
         vc.modalPresentationStyle = .fullScreen
         present(vc, animated: true)
     }

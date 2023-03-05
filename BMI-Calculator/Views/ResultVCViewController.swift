@@ -9,8 +9,8 @@ import UIKit
 
 class ResultVCViewController: UIViewController {
     
-    var result = ""
-    
+    var bmi: BMI?
+
     private lazy var imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "result_background")
@@ -81,7 +81,10 @@ class ResultVCViewController: UIViewController {
         
         setupUI()
         
-        valueLabel.text = result
+        valueLabel.text = bmi?.getBMIValue()
+        eatLabel.text = bmi?.advice
+        imageView.backgroundColor = bmi?.color
+        
     }
 
     private func setupUI() {
